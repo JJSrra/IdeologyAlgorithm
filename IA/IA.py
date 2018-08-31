@@ -26,15 +26,15 @@ class IdeologyAlgorithm:
         self.__best_solution.set_fitness(sys.float_info.max)
         self.__population = None
 
-        if self.__function_index == 7:
-            self.__original_lower_bounds = np.array([0 for i in range(self.__function.num_variables)])
-            self.__original_upper_bounds = np.array([600 for i in range(self.__function.num_variables)])
-        elif self.__function_index == 25:
-            self.__original_lower_bounds = np.array([-2 for i in range(self.__function.num_variables)])
-            self.__original_upper_bounds = np.array([5 for i in range(self.__function.num_variables)])
-        else:
-            self.__original_lower_bounds = np.array([x for x in self.__function.min_bounds])
-            self.__original_upper_bounds = np.array([x for x in self.__function.max_bounds])
+        # if self.__function_index == 7:
+        #     self.__original_lower_bounds = np.array([0 for i in range(self.__function.num_variables)])
+        #     self.__original_upper_bounds = np.array([600 for i in range(self.__function.num_variables)])
+        # elif self.__function_index == 25:
+        #     self.__original_lower_bounds = np.array([-2 for i in range(self.__function.num_variables)])
+        #     self.__original_upper_bounds = np.array([5 for i in range(self.__function.num_variables)])
+        # else:
+        self.__original_lower_bounds = np.array([x for x in self.__function.min_bounds])
+        self.__original_upper_bounds = np.array([x for x in self.__function.max_bounds])
 
     def __initialize_population(self):
         # Random politicians
