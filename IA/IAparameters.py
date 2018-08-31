@@ -1,4 +1,4 @@
-import cec2014
+import optproblems.cec2005
 import numpy as np
 import time
 from IA import *
@@ -20,14 +20,8 @@ if __name__ == "__main__":
 
     np.random.seed(10)
 
-    def f1(x):
-        return cec2014.cec14(x,1)
-
-    f1.num_variables = dim
-    f1.min_bounds = np.repeat(-100.0, dim)
-    f1.max_bounds = np.repeat(100.0, dim)
-    
-    print("F1: Rotated High Conditioned Elliptic Function\n")
+    f1 = optproblems.cec2005.F1(dim)
+    print("F1: Shifted Sphere Function\n")
 
     for r in r_values:
         for desertion_threshold in desertion_thresholds:
@@ -44,21 +38,15 @@ if __name__ == "__main__":
     
     np.random.seed(10)
 
-    def f4(x):
-        return cec2014.cec14(x,4)
-
-    f4.num_variables = dim
-    f4.min_bounds = np.repeat(-100.0, dim)
-    f4.max_bounds = np.repeat(100.0, dim)
-    
-    print("F4: Shifted and Rotated Rosenbrock’s Function\n")
+    f6 = optproblems.cec2005.F6(dim)
+    print("F6: Shifted Rosenbrock’s Function\n")
 
     for r in r_values:
         for desertion_threshold in desertion_thresholds:
             time1 = time.time()
-            results = np.array([IAalgorithm(n_parties=parties, politicians=politicians,
-                R=r, function=f4, function_index=4, max_evaluations=evaluations,
-                desertion_threshold=desertion_threshold) for _ in range(repeats)])
+            IA = IdeologyAlgorithm(n_parties=parties, politicians=politicians, R=r, function=f6,
+                function_index=6, max_evaluations=evaluations, desertion_threshold=desertion_threshold)
+            results = np.array([IA.ideology_algorithm() for _ in range(repeats)])
             total_time = time.time() - time1
             print("R: {}\tDesertion threshold: {}".format(r, desertion_threshold))
             print("Min: {:e}\nMax: {:e}\nMean: {:e}\nMean time: {:5f} sec".format(np.min(results), np.max(results), np.mean(results), total_time / repeats))
@@ -68,21 +56,15 @@ if __name__ == "__main__":
 
     np.random.seed(10)
 
-    def f17(x):
-        return cec2014.cec14(x,17)
-
-    f17.num_variables = dim
-    f17.min_bounds = np.repeat(-100.0, dim)
-    f17.max_bounds = np.repeat(100.0, dim)
-    
-    print("F17: Hybrid Function 1 (N=3)\n")
+    f14 = optproblems.cec2005.F14(dim)
+    print("F14: Shifted Rotated Expanded Scaffer’s F6\n")
 
     for r in r_values:
         for desertion_threshold in desertion_thresholds:
             time1 = time.time()
-            results = np.array([IAalgorithm(n_parties=parties, politicians=politicians,
-                R=r, function=f17, function_index=17, max_evaluations=evaluations,
-                desertion_threshold=desertion_threshold) for _ in range(repeats)])
+            IA = IdeologyAlgorithm(n_parties=parties, politicians=politicians, R=r, function=f14,
+                function_index=14, max_evaluations=evaluations, desertion_threshold=desertion_threshold)
+            results = np.array([IA.ideology_algorithm() for _ in range(repeats)])
             total_time = time.time() - time1
             print("R: {}\tDesertion threshold: {}".format(r, desertion_threshold))
             print("Min: {:e}\nMax: {:e}\nMean: {:e}\nMean time: {:5f} sec".format(np.min(results), np.max(results), np.mean(results), total_time / repeats))
@@ -92,22 +74,15 @@ if __name__ == "__main__":
 
     np.random.seed(10)
 
-    def f23(x):
-        return cec2014.cec14(x,23)
-
-    f23.num_variables = dim
-    f23.min_bounds = np.repeat(-100.0, dim)
-    f23.max_bounds = np.repeat(100.0, dim)
-    
-    print("F23: Composition Function 1 (N=5)\n")
+    f15 = optproblems.cec2005.F15(dim)
+    print("F15: Hybrid Composition Function\n")
 
     for r in r_values:
         for desertion_threshold in desertion_thresholds:
             time1 = time.time()
-            results = np.array([IAalgorithm(n_parties=parties, politicians=politicians,
-                R=r, function=f23, function_index=23, max_evaluations=evaluations,
-                desertion_threshold=desertion_threshold) for _ in range(repeats)])
-            total_time = time.time() - time1
+            IA = IdeologyAlgorithm(n_parties=parties, politicians=politicians, R=r, function=f15,
+                function_index=15, max_evaluations=evaluations, desertion_threshold=desertion_threshold)
+            results = np.array([IA.ideology_algorithm() for _ in range(repeats)])
             total_time = time.time() - time1
             print("R: {}\tDesertion threshold: {}".format(r, desertion_threshold))
             print("Min: {:e}\nMax: {:e}\nMean: {:e}\nMean time: {:5f} sec".format(np.min(results), np.max(results), np.mean(results), total_time / repeats))
