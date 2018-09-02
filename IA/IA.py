@@ -214,6 +214,9 @@ class IdeologyAlgorithm:
         self.__initialize_population()
         self.__sort_population()
 
+        evaluations_marker = 0
+        evaluation_marks = np.array([])
+
         while self.__evaluations < self.__max_evaluations:
             # Update the leader of each party
             leaders = np.array([party.get_leader() for party in self.__population])
@@ -246,12 +249,16 @@ class IdeologyAlgorithm:
             [self.__update_party(party) for party in self.__population]
             # We sort the population to get the best individuals first
             self.__sort_population()
+
+            if self.__evaluations >= evaluations_marker:
+                evaluation_marks = np.insert(evaluation_marks, len(evaluation_marks), self.__best_solution.get_fitness())
+                evaluations_marker += self.__max_evaluations / 10
         
         leaders = np.array([party.get_leader() for party in self.__population])
         if sorted(leaders, key=lambda p: p.get_fitness())[0].get_fitness() < self.__best_solution.get_fitness():
             return sorted(leaders, key=lambda p: p.get_fitness())[0].get_fitness()
         else:
-            return self.__best_solution.get_fitness()
+            return np.append(evaluation_marks, self.__best_solution.get_fitness())
 
     def get_population(self):
         return self.__population
