@@ -11,7 +11,7 @@ def IAalgorithm(n_parties, politicians, R, function, function_index, max_evaluat
 
 if __name__ == "__main__":
     dim = 10
-    repeats = 1
+    repeats = 10
     evaluations = 10000*dim
     parties = 5
     politicians = 30
